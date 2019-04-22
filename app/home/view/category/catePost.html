@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Josephine - HTML Template</title>
+
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta charset="utf-8">
+	<meta name="author" content="">
+	<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Favicons -->
+	<link rel="shortcut icon" href="public/images/home/favicon.png">
+	<link rel="apple-touch-icon" href="public/images/home/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="public/images/home/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="public/images/home/apple-touch-icon-114x114.png">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="public/css/home/fonts/font-awesome.css">
+	<link rel="stylesheet" href="public/css/home/plugins.css">
+	<link rel="stylesheet" href="public/css/home/main.css">
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700,900%7CMontserrat:400,700%7CLora:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+
+ 
+
+
+
+	<header id="header">
+
+		<div id="header-top">
+
+			<div class="wrapper clearfix">
+				
+				<nav id="navigation">
+					<ul class="menu">
+						<li>
+							<a href="index.php">首页</a>
+						</li>
+						<li>
+							<a href="index.php?m=user&a=about">关于我</a>
+						</li>						
+						<li>
+							<a href="#">帖子 详情</a>
+						</li>
+						<li><a href="index.php?m=user&a=personal">个人资料</a></li>
+						<li><a href="index.php?m=details&a=search">搜索</a></li>
+						<li class="current-menu-item"><a href="index.php?m=category&a=category">板块</a></li>
+						<li>
+						{if isset($_SESSION['username'])}
+						<a href="index.php?m=user&a=loginout">退出</a>
+						{else}
+						<a href="index.php?m=user&a=reg">登录 注册</a>
+						{/if}
+						</li>
+					</ul><!-- .menu -->
+				</nav><!-- #navigation -->
+
+				<div id="navigation-hamburger">
+
+					<span class="navigation-hamburger-hook"><span class="fa fa-reorder"></span></span>
+					<select>
+						<option value="#">- Select -</option>
+						<!-- automatically populated based on #navigation -->
+					</select>
+
+				</div><!-- #navigation-hamburger -->
+				
+				<div id="header-search">
+					<div class="header-search-inner">
+						<form method="post" action="index.php?m=details&a=search">
+							<input type="text" name="search" placeholder="Search and hit enter" />
+						</form>
+						<span class="header-search-icon"><span class="fa fa-search"></span></span>
+					</div><!-- .search-form-wrapper -->
+				</div><!-- #header-search -->
+
+				<div id="header-social">
+
+					<a href="#" target="_blank" class="fa fa-twitter"></a>
+					<a href="#" target="_blank" class="fa fa-facebook"></a>
+					<a href="#" target="_blank" class="fa fa-youtube-play"></a>
+					<a href="#" target="_blank" class="fa fa-vimeo"></a>
+					<a href="#" target="_blank" class="fa fa-tumblr"></a>
+
+				</div><!-- #header-social -->
+
+			</div><!-- .wrapper -->
+
+		</div><!-- #header-top -->
+
+		<div id="header-main">
+
+			<div class="wrapper">
+
+				<a href="index.php" title="Josephine" rel="home">						
+					<img src="public/images/home/logo.png" alt="Josephine" />
+				</a>
+
+			</div><!-- .wrapper -->
+
+		</div><!-- #header-main -->
+
+	</header><!-- #header -->
+
+	<div id="main">
+
+		<div class="wrapper clearfix">
+
+			<div id="content">
+				{if !empty($postRes)}
+				{foreach $postRes as $val}
+				<div class="blog-post blog-post-single">
+
+					<div class="blog-post-thumb">
+						<!-- <img src="public/images/home/blog-posts/placeholder.jpg" alt="" /> -->
+						<a href="index.php?m=details&a=single&cid={$val['cid']}&tid={$val['tid']}"><img src="{$val['postpic']}" alt="" /></a>
+					</div><!-- .blog-post-thumb -->
+
+					<div class="blog-post-main clearfix">
+					
+						<div class="blog-post-info">
+
+							<div class="blog-post-info-inner">
+						
+								<div class="blog-post-title">
+									<h1>{$val['title']}</h1>
+								</div><!-- .blog-post-title -->
+
+								<div class="blog-post-meta">
+									<?php echo date('Y-m-d H:i:s' , $val['postime']);?>, In: <a href="index.php?m=details&a=single&cid={$val['cid']}&tid={$val['tid']}">{$val['classname']}</a>
+								</div><!-- .blog-post-meta -->
+
+								<div class="blog-post-content">
+									
+									<p>{$val['content']}.</p>
+
+								</div><!-- .dslc-blog-post-content -->
+
+							</div><!-- .blog-post-info-inner -->
+
+						</div><!-- .blog-post-info -->
+
+					</div><!-- .blog-post-main -->
+
+				</div><!-- .blog-post -->
+				{/foreach}
+				{/if}
+			</div><!-- #content -->
+
+				{if !empty($postResAllpage)}
+				<div class="pagination" style='margin-left:460px'>
+
+					<a href="{$postResAllpage['first']}" class="current-pagination-item">首页</a>
+					<a href="{$postResAllpage['prev']}">上一页</a>
+					<a href="{$postResAllpage['next']}">下一页</a>
+					<a href="{$postResAllpage['end']}">尾页</a>
+					
+				</div><!-- .pagination -->
+				{/if}
+
+			{if isset($_SESSION['username']) && $_SESSION['undertype'] == 1}
+			<div id="leave-comment">
+
+				<div class="white-wrap">
+
+					<div class="section-heading">
+						<span class="section-heading-line"></span>
+						<span class="section-heading-text">发表文章</span>
+					</div><!-- .section-heading -->
+
+					<form action="index.php?m=details&a=addPost&cid={$_GET['cid']}" method="post" enctype="multipart/form-data">
+						
+						<div class="clearfix">
+
+							<div class="leave-comment-name col col-4">
+								<input name="title" type="text" value="" size="30" placeholder="TITLE *" aria-required="true">
+							</div><!-- .leave-comment-name -->
+
+							<div class="leave-comment-email col col-4">
+								<input name="pic" type="file" value="" aria-required="true">
+							</div><!-- .leave-comment-email -->
+
+						</div><!-- .clearfix -->
+						
+						<div class="leave-comment-message">
+							<textarea name="content" placeholder="CONTENT" aria-required="true"></textarea>
+						</div><!-- .leave-comment-message -->
+						
+						<div class="leave-comment-submit">
+							<input name="submit" type="submit" id="submit" class="submit" value="发布你的文字" />
+						</div><!-- .leave-comment-submit -->
+
+					</form>
+
+				</div><!-- .white-wrap -->
+
+			</div><!-- #leave-comment -->
+			{/if}
+		</div><!-- .wrapper -->
+
+
+
+
+	</div><!-- #main -->
+
+	<footer id="footer">
+
+		<div id="footer-about">
+
+			<div class="wrapper clearfix">
+
+				<div class="col col-3">&nbsp;</div><!-- Empty col to push the next col -->
+
+				<div class="col col-6">
+
+					<h2 id="footer-about-title">About Josephine</h2>
+					
+					<div id="footer-about-content">
+						Mauris sed diam risus. Mauris tempor elit ut urna consectetur, malesuada porta magna luctus. Phasellus ullamcorper consequat justo, at ultricies diam consequat ut. Integer et sapien sit dolor.
+					</div><!-- #footer-about-content -->
+
+					<div id="footer-about-social">
+						
+						<a href="#" target="_blank"><span class="fa fa-twitter"></span></a>
+						<a href="#" target="_blank"><span class="fa fa-facebook"></span></a>
+						<a href="#" target="_blank"><span class="fa fa-vimeo"></span></a>
+						<a href="#" target="_blank"><span class="fa fa-dribbble"></span></a>
+
+					</div><!-- #footer-about-social -->
+
+				</div><!-- .col-6 -->
+
+			</div><!-- .wrapper -->
+
+		</div><!-- #footer-about -->
+
+		<div id="footer-copyright">
+
+			<div class="wrapper">
+
+				Copyright &copy; Josephine 2015. All rights reserved.
+
+			</div><!-- .wrapper -->
+
+		</div><!-- #footer-copyright -->
+
+	</footer><!-- #footer -->
+
+	<!-- JavaScript -->
+	<script type="text/javascript" src="public/js/home/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="public/js/home/plugins.js"></script>
+	<script type="text/javascript" src="public/js/home/main.js"></script>
+
+</body>
+</html>

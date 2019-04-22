@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8' />
+		<title>板块管理</title>
+		<link rel='stylesheet' type='text/css' href='public/css/admin/adminBase.css' />
+		<link rel='stylesheet' type='text/css' href='public/css/admin/G-index.css' />
+		<link rel='stylesheet' type='text/css' href='public/css/admin/adminCate.css' />
+	</head>
+	<body>
+		<div class='box clearFix'>
+			<div class='top fl clearFix'>
+				<div class='top1'></div>
+				<div class='top2'></div>
+				<div class='top3'></div>
+				<div class='top-le'><i>Discuz!</i><br/>Control Panel</div>
+				<div class='top-gang'></div>
+				<ul class='nav clearFix'>
+					<li><a href='admin.php?m=user&a=user'>用户管理</a></li>
+					<li><a href='admin.php?m=category&a=category' class='onclick'>版块管理</a></li>
+					<li><a href='admin.php?m=details&a=details'>帖子管理</a></li>
+				</ul>
+				<ul class='exit'>
+					<li><p>你好, 创始人 </p>
+						<em>&nbsp;&nbsp;
+						{if isset($_SESSION['username'])}
+							{$_SESSION['username']}
+						{else}
+						admin
+						{/if}
+						&nbsp;&nbsp;</em>
+					<a href="admin.php?m=user&a=loginout">[退出]</a>
+					<a href='index.php'><img src="public/img/nav.jpg"></a>
+					</li>
+				</ul>
+			</div>
+
+			<div class='left clearFix'>
+				<ul class='nav-le clearFix'>
+					<li class='on1'><a href="admin.php?m=category&a=category"><img src='public/img/dot.gif'>管理板块</a></li>
+					<li class='bottom'>Powered by <a href="#">phpxy</a> V2© 2012, <a href="#">phpxy</a> Inc.</li>
+				</ul>			
+			</div>
+
+
+			<div class='right clearFix'>
+				<div class='r-top'>版块管理</div>
+				<ul class='r1 clearFix'>
+						<li>显示顺序</li>
+						<li style='margin-left:22px'>版块名称</li>		
+						<li style='margin-left:390px'>板块介绍</li>		
+				</ul>		
+				<form action="admin.php?m=category&a=doUpdate" method="post" enctype="multipart/form-data" class="clearFix">
+				{if !empty($allCate)}
+					{foreach $allCate as $value}	
+					<div class='r3'>
+						<input type='checkbox' name="cid[{$value['cid']}]" value="{$value['cid']}" class='ban1' />
+						<input type='text' name="order[{$value['cid']}]" value="{$value['orderby']}" class='ban1' />
+						<input type='text' name="name[{$value['cid']}]" value="{$value['classname']}"  class='ban2 ban4' />
+						<input type='text' name="intro[{$value['cid']}]" value="{$value['intro']}" style='margin-left: 303px;' />
+					</div>	
+					{/foreach}
+				{/if}
+
+					<input type='submit' name='sub_update' value='修改' class='submit' class='fl' />		
+						
+				</form>
+
+
+
+				
+			</div>
+		</div>
+	
+	
+	</body>
+</html>
